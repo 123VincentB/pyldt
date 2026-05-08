@@ -59,8 +59,8 @@ print(f"  I(C=0°, γ=45°) = {ldt.intensities[c0_idx][g45_idx]:.2f} cd/klm")
 
 # ── Convert to absolute candela ───────────────────────────────────────────────
 print("\n=== Absolute candela (first lamp set) ===")
-flux_klm = h.lamp_flux[0] / 1000.0
-i_abs_nadir = ldt.intensities[c0_idx][g0_idx] * flux_klm
-print(f"  Lamp flux      : {h.lamp_flux[0]} lm = {flux_klm:.3f} klm")
+flux_klm = h.num_lamps[0] * h.lamp_flux[0] / 1000.0
+i_abs_nadir = ldt.intensities[c0_idx][g0_idx] * flux_klm * h.conv_factor
+print(f"  Total lamp flux: {h.num_lamps[0]} × {h.lamp_flux[0]} lm = {flux_klm:.3f} klm")
 print(f"  I(C=0°, γ=0°)  = {ldt.intensities[c0_idx][g0_idx]:.2f} cd/klm × {flux_klm:.3f} klm"
       f" = {i_abs_nadir:.1f} cd")

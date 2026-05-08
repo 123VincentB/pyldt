@@ -157,9 +157,9 @@ ax.plot(g_rad, i_c0, linewidth=1.5, label="C=0°")
 
 ## Variant: absolute candela
 
-To plot in candela instead of cd/klm, multiply by the lamp flux:
+To plot in candela instead of cd/klm, multiply by the total lamp flux:
 
 ```python
-flux_klm = h.lamp_flux[0] / 1000.0
-i_c0_cd = i_c0 * flux_klm
+flux_klm = h.num_lamps[0] * h.lamp_flux[0] / 1000.0
+i_c0_cd = i_c0 * flux_klm * h.conv_factor
 ```

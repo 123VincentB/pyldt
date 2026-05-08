@@ -98,14 +98,16 @@ print(ldt.intensities[c0_idx][g45_idx])   # cd/klm at C=0°, γ=45°
 
 ## Converting to absolute candela
 
-Intensity values in the file are normalised to cd/klm.
-To convert to absolute candela, multiply by the lamp flux:
+Intensity values in the file are normalised to cd/klm of total lamp flux
+(num_lamps × lamp_flux). To convert to absolute candela:
 
 ```python
-flux_klm = h.lamp_flux[0] / 1000.0   # lm → klm
+# Total lamp flux: num_lamps × lamp_flux, converted to klm
+flux_klm = h.num_lamps[0] * h.lamp_flux[0] / 1000.0
 
+# conv_factor is 1.0 in most files; include it for correctness
 i_abs = [
-    [v * flux_klm for v in row]
+    [v * flux_klm * h.conv_factor for v in row]
     for row in ldt.intensities
 ]
 

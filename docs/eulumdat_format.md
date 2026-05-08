@@ -191,15 +191,17 @@ distribution to eliminate measurement artefacts.
 ## Intensity values
 
 Intensities are tabulated in **cd/klm** (candela per kilolumen of total lamp flux).
-To convert to absolute candela, use either of the two equivalent forms:
+To convert to absolute candela:
 
 ```
-I_abs(C, γ) [cd] = I_rel(C, γ) [cd/klm] × Φ_lamp [lm] / 1000
-I_abs(C, γ) [cd] = I_rel(C, γ) [cd/klm] × Φ_lamp [klm]
+I_abs(C, γ) [cd] = I_rel(C, γ) [cd/klm] × (num_lamps × Φ_lamp [lm]) / 1000 × conv_factor
 ```
 
-> The first form is more practical since lamp flux (Φ_lamp) is typically expressed
-> in lm, not klm.
+> `num_lamps` is `h.num_lamps[0]`, `Φ_lamp` is `h.lamp_flux[0]` (lm), and
+> `conv_factor` is `h.conv_factor` (1.0 in most files).
+> When `num_lamps = 1` and `conv_factor = 1.0` the formula reduces to
+> `I_abs = I_rel × Φ_lamp / 1000`, which is why single-lamp files appear correct
+> even without the full formula.
 
 Values are written one per line, sweeping all γ-angles for each C-plane in sequence.
 
